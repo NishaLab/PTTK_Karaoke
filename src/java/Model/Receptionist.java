@@ -16,8 +16,10 @@ public class Receptionist extends Staff implements Serializable{
     public Receptionist() {
     }
 
-    public Receptionist(int id, String username, String password, String email, String address, String phone) {
-        super("Receptionist", id, username, password, email, address, phone);
+    public Receptionist(int id, String username, String password, String email, String address, String phone, String name) {
+        super("Receptionist", id, username, password, email, address, phone, name);
     }
+
+
     
 }

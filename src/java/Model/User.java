@@ -14,19 +14,21 @@ import java.io.Serializable;
 public class User implements Serializable{
 
     private int id;
-    private String username, password, email, address, phone;
+    private String username, password, email, address, phone,name;
 
     public User() {
     }
 
-    public User(int id, String username, String password, String email, String address, String phone) {
+    public User(int id, String username, String password, String email, String address, String phone, String name) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.address = address;
         this.phone = phone;
+        this.name = name;
     }
+
 
     public int getId() {
         return id;
@@ -76,9 +78,19 @@ public class User implements Serializable{
         this.phone = phone;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", address=" + address + ", phone=" + phone + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", address=" + address + ", phone=" + phone + ", name=" + name + '}';
     }
+
+
     
 }
