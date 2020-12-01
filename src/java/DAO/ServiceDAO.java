@@ -25,7 +25,7 @@ public class ServiceDAO extends DAO {
         String sql = "SELECT * FROM Service WHERE name LIKE ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, name);
+            ps.setString(1, "%" + name + "%");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -40,5 +40,25 @@ public class ServiceDAO extends DAO {
         }
 
         return res;
+    }
+
+    public Service getServiceById(int id) {
+        Service service = new Service();
+        String sql = "SELECT * FROM Service WHERE id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                service.setId(rs.getInt("id"));
+                service.setName(rs.getString("name"));
+                service.setDesc(rs.getString("desc"));
+                service.setPrice(rs.getFloat("price"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return service;
     }
 }

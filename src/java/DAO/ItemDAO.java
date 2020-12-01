@@ -25,7 +25,7 @@ public class ItemDAO extends DAO {
         String sql = "SELECT * FROM Item WHERE name LIKE ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, name);
+            ps.setString(1, "%" + name + "%");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -42,6 +42,27 @@ public class ItemDAO extends DAO {
         }
 
         return res;
+    }
+
+    public Item getItemById(int id) {
+        Item item = new Item();
+        String sql = "SELECT * FROM Item WHERE id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                item.setId(rs.getInt("id"));
+                item.setName(rs.getString("name"));
+                item.setType(rs.getString("type"));
+                item.setDesc(rs.getString("desc"));
+                item.setPrice(rs.getFloat("price"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return item;
     }
 
 }
