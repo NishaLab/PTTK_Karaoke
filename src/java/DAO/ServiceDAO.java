@@ -14,28 +14,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
 
-public class ItemDAO extends DAO {
+public class ServiceDAO extends DAO {
 
-    public ItemDAO() {
+    public ServiceDAO() {
         super();
     }
 
-    public ArrayList<Item> searchItem(String name) {
-        ArrayList<Item> res = new ArrayList<Item>();
-        String sql = "SELECT * FROM Item WHERE name LIKE ?";
+    public ArrayList<Service> searchService(String name) {
+        ArrayList<Service> res = new ArrayList<Service>();
+        String sql = "SELECT * FROM Service WHERE name LIKE ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Item item = new Item();
-                item.setId(rs.getInt("id"));
-                item.setName(rs.getString("name"));
-                item.setType(rs.getString("type"));
-                item.setDesc(rs.getString("desc"));
-                item.setPrice(rs.getFloat("price"));
-                res.add(item);
+                Service service = new Service();
+                service.setId(rs.getInt("id"));
+                service.setName(rs.getString("name"));
+                service.setDesc(rs.getString("desc"));
+                res.add(service);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,5 +41,4 @@ public class ItemDAO extends DAO {
 
         return res;
     }
-
 }

@@ -17,16 +17,36 @@ public class Booking implements Serializable{
     private ArrayList<BookedRoom> rooms;
     private String paymentType;
     private Date paymentDate;
-
+    private Client client;
+    private Staff staff;
     public Booking() {
     }
 
-    public Booking(int id, ArrayList<BookedRoom> rooms, String paymentType, Date paymentDate) {
+    public Booking(int id, ArrayList<BookedRoom> rooms, String paymentType, Date paymentDate, Client client, Staff staff) {
         this.id = id;
         this.rooms = rooms;
         this.paymentType = paymentType;
         this.paymentDate = paymentDate;
+        this.client = client;
+        this.staff = staff;
     }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
 
 
     public int getId() {
