@@ -5,10 +5,28 @@
  */
 package DAO;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author LEGION
  */
 public class DAO {
-    
+
+    public static Connection conn;
+
+    public DAO() {
+        String url = "jdbc:mysql://localhost:3306/pttk?useSSL=false";
+        String username = "root";
+        String password = "0963063105";
+        try {
+            conn = DriverManager.getConnection(url, username, password);
+//            conn.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
