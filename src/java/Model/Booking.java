@@ -14,23 +14,20 @@ import java.util.Date;
  */
 public class Booking implements Serializable{
     private int id;
-    private ArrayList<BookedItem> items;
-    private ArrayList<BookedService> services;
+    private ArrayList<BookedRoom> rooms;
     private String paymentType;
     private Date paymentDate;
 
     public Booking() {
-        items = new ArrayList<>();
-        services = new ArrayList<>();
     }
 
-    public Booking(int id, ArrayList<BookedItem> items, ArrayList<BookedService> services, String paymentType, Date paymentDate) {
+    public Booking(int id, ArrayList<BookedRoom> rooms, String paymentType, Date paymentDate) {
         this.id = id;
-        this.items = items;
-        this.services = services;
+        this.rooms = rooms;
         this.paymentType = paymentType;
         this.paymentDate = paymentDate;
     }
+
 
     public int getId() {
         return id;
@@ -40,21 +37,14 @@ public class Booking implements Serializable{
         this.id = id;
     }
 
-    public ArrayList<BookedItem> getItems() {
-        return items;
+    public ArrayList<BookedRoom> getRooms() {
+        return rooms;
     }
 
-    public void setItems(ArrayList<BookedItem> items) {
-        this.items = items;
+    public void setRooms(ArrayList<BookedRoom> rooms) {
+        this.rooms = rooms;
     }
 
-    public ArrayList<BookedService> getServices() {
-        return services;
-    }
-
-    public void setServices(ArrayList<BookedService> services) {
-        this.services = services;
-    }
 
     public String getPaymentType() {
         return paymentType;
@@ -74,7 +64,8 @@ public class Booking implements Serializable{
 
     @Override
     public String toString() {
-        return "Booking{" + "id=" + id + ", items=" + items + ", services=" + services + ", paymentType=" + paymentType + ", paymentDate=" + paymentDate + '}';
+        return "Booking{" + "id=" + id + ", rooms=" + rooms + ", paymentType=" + paymentType + ", paymentDate=" + paymentDate + '}';
     }
+
     
 }

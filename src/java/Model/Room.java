@@ -6,29 +6,28 @@
 package Model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  *
  * @author LEGION
  */
-public class Store implements Serializable {
+public class Room implements Serializable {
+
     private int id;
-    private String name, address, desc;
-    private ArrayList<Room> rooms;
-    public Store() {
-        rooms = new ArrayList<>();
+    private String name, desc;
+    private float price;
+    private String type;
+
+    public Room() {
     }
 
-    public Store(int id, String name, String address, String desc, ArrayList<Room> rooms) {
+    public Room(int id, String name, String desc, float price, String type) {
         this.id = id;
         this.name = name;
-        this.address = address;
         this.desc = desc;
-        this.rooms = rooms;
+        this.price = price;
+        this.type = type;
     }
-
-
 
     public int getId() {
         return id;
@@ -46,14 +45,6 @@ public class Store implements Serializable {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getDesc() {
         return desc;
     }
@@ -62,9 +53,25 @@ public class Store implements Serializable {
         this.desc = desc;
     }
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return "Store{" + "id=" + id + ", name=" + name + ", address=" + address + ", desc=" + desc + '}';
+        return "Room{" + "id=" + id + ", name=" + name + ", desc=" + desc + ", price=" + price + ", type=" + type + '}';
     }
     
 }
