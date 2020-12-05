@@ -59,4 +59,25 @@ public class RoomDAO extends DAO {
         return res;
     }
 
+    public Room getRoomById(int id) {
+        Room room = new Room();
+        String sql = "SELECT * FROM room WHERE id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                room.setId(rs.getInt("id"));
+                room.setName(rs.getString("name"));
+                room.setDesc(rs.getString("desc"));
+                room.setType(rs.getString("type"));
+                room.setPrice(rs.getFloat("price"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return room;
+    }
+
 }

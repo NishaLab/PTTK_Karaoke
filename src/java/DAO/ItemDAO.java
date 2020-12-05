@@ -46,7 +46,7 @@ public class ItemDAO extends DAO {
 
     public Item getItemById(int id) {
         Item item = new Item();
-        String sql = "SELECT * FROM Item WHERE id = ?";
+        String sql = "SELECT * FROM item WHERE id = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);

@@ -16,21 +16,27 @@ import java.util.Date;
 public class BookedRoom implements Serializable{
     private int id;
     private Date returnDate, receiveDate;
+    private float price;
     private Room room;
     private ArrayList<BookedItem> items;
     private ArrayList<BookedService> services;
     
     public BookedRoom() {
+        items = new ArrayList<>();
+        services = new ArrayList<>();
     }
 
-    public BookedRoom(int id, Date returnDate, Date receiveDate, Room room, ArrayList<BookedItem> items, ArrayList<BookedService> services) {
+    public BookedRoom(int id, Date returnDate, Date receiveDate, float price, Room room, ArrayList<BookedItem> items, ArrayList<BookedService> services) {
         this.id = id;
         this.returnDate = returnDate;
         this.receiveDate = receiveDate;
+        this.price = price;
         this.room = room;
         this.items = items;
         this.services = services;
     }
+
+
 
     public ArrayList<BookedItem> getItems() {
         return items;
@@ -46,6 +52,14 @@ public class BookedRoom implements Serializable{
 
     public void setServices(ArrayList<BookedService> services) {
         this.services = services;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 
 
@@ -84,7 +98,8 @@ public class BookedRoom implements Serializable{
 
     @Override
     public String toString() {
-        return "BookedRoom{" + "id=" + id + ", returnDate=" + returnDate + ", receiveDate=" + receiveDate + ", room=" + room + '}';
+        return "BookedRoom{" + "id=" + id + ", returnDate=" + returnDate + ", receiveDate=" + receiveDate + ", price=" + price + ", room=" + room + ", items=" + items + ", services=" + services + '}';
     }
+
     
 }

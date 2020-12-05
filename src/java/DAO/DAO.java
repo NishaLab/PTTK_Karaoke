@@ -22,9 +22,10 @@ public class DAO {
         String username = "root";
         String password = "0963063105";
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, password);
 //            conn.setAutoCommit(false);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

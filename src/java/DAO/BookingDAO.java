@@ -96,12 +96,69 @@ public class BookingDAO extends DAO {
         return true;
     }
 
-    public ArrayList<Booking> searchBooking(int id) {
-        ArrayList<Booking> res = new ArrayList<>();
-        String boooking = "SELECT * FROM booking WHERE id = ?";
-        String bookedRoom = "INSERT INTO bookedroom(receivedDate,returnDate,Room_id, Booking_id)VALUES(?,?,?,?,?,?)";
-        String bookedService = "INSERT INTO bookedservice(price,Service_id,BookedRoom_id) VALUES(?,?,?)";
-        String bookedItem = "INSERT INTO bookeditem(quantity,price,Item_id,BookedRoom_id) VALUES(?,?,?,?)";
+    public Booking getBooking(int id) {
+        Booking res = new Booking();
+        String booking = "SELECT * FROM booking WHERE id = ?";
+        String bookedroom = "SELECT * FROM bookedroom WHERE Booking_id = ?";
+        String bookeditem = "SELECT * FROM bookeditem WHERE BookedRoom_id = ?";
+        String bookedservice = "SELECT * FROM bookedservice WHERE BookedRoom_id = ?";
+        RoomDAO rd = new RoomDAO();
+        ItemDAO itemDAO = new ItemDAO();
+        ServiceDAO sd = new ServiceDAO();
+        ArrayList<BookedRoom> brList = new ArrayList<>();
+        try {
+            PreparedStatement ps = conn.prepareStatement(booking);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                res.setId(id);
+                res.setPaymentDate(rs.getDate("paymentDate"));
+                res.setPaymentType(rs.getString("paymentType"));
+                int bookingId = rs.getInt("id");
+                ps = conn.prepareStatement(bookedroom);
+                ps.setInt(1, bookingId);
+                ResultSet roomSet = ps.executeQuery();
+                while (roomSet.next()) {
+                    int roomId = roomSet.getInt("Room_id");
+                    System.out.println(roomId);
+                    BookedRoom br = new BookedRoom();
+                    System.out.println(roomSet.getDate("receiveDate"));
+                    br.setId(roomSet.getInt("id"));
+                    br.setReceiveDate(roomSet.getDate("receiveDate"));
+                    br.setReturnDate(roomSet.getDate("returnDate"));
+                    br.setPrice(roomSet.getFloat("price"));
+                    br.setRoom(rd.getRoomById(roomId));
+                    ps = conn.prepareStatement(bookeditem);
+                    ps.setInt(1, roomId);
+                    ResultSet itemSet = ps.executeQuery();
+                    while (itemSet.next()) {
+                        BookedItem bi = new BookedItem();
+                        int itemId = itemSet.getInt("Item_id");
+                        bi.setItem(itemDAO.getItemById(itemId));
+                        bi.setPrice(itemSet.getFloat("price"));
+                        bi.setQuantity(itemSet.getInt("quantity"));
+                        System.out.println(bi);
+                        br.getItems().add(bi);
+                    }
+                    ps = conn.prepareStatement(bookedservice);
+                    ps.setInt(1, roomId);
+                    ResultSet serviceSet = ps.executeQuery();
+                    while (serviceSet.next()) {
+                        BookedService bs = new BookedService();
+                        int serviceID = serviceSet.getInt("Service_id");
+                        bs.setService(sd.getServiceById(serviceID));
+                        bs.setPrice(serviceSet.getFloat("price"));
+                        System.out.println(bs);
+                        br.getServices().add(bs);
+                    }
+                    
+                    brList.add(br);
+                }
+            }
+            res.setRooms(brList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return res;
     }
 }

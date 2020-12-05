@@ -44,7 +44,7 @@ public class ServiceDAO extends DAO {
 
     public Service getServiceById(int id) {
         Service service = new Service();
-        String sql = "SELECT * FROM Service WHERE id = ?";
+        String sql = "SELECT * FROM service WHERE id = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
