@@ -29,10 +29,11 @@ public class Client extends User implements Serializable{
         this.type = type;
     }
 
-    public Client(String type, int id, String username, String password, String email, String address, String phone, String name) {
-        super(id, username, password, email, address, phone, name);
+    public Client(String type, int id, String username, String password, String email, String address, String phone, String name, String role) {
+        super(id, username, password, email, address, phone, name, role);
         this.type = type;
     }
+
 
 
 

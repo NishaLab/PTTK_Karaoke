@@ -22,10 +22,12 @@ public class Staff extends User implements Serializable {
         this.position = position;
     }
 
-    public Staff(String position, int id, String username, String password, String email, String address, String phone, String name) {
-        super(id, username, password, email, address, phone, name);
+    public Staff(String position, int id, String username, String password, String email, String address, String phone, String name, String role) {
+        super(id, username, password, email, address, phone, name, role);
         this.position = position;
     }
+
+
 
 
 

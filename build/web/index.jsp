@@ -16,15 +16,7 @@
         <title>Login Page</title>
     </head>
     <body>
-
-        <%
-            Item item = new Item();
-            ItemDAO dao = new ItemDAO();
-            item  = dao.getItemById(1);
-            System.out.println(item);
-        %>
-
         <a href="Login.jsp">login</a>|  
-        <a href="../Register.jsp">Register</a>  
+        <a href="Register.jsp">Register</a>  
     </body>
 </html>

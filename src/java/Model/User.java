@@ -14,12 +14,12 @@ import java.io.Serializable;
 public class User implements Serializable{
 
     private int id;
-    private String username, password, email, address, phone,name;
+    private String username, password, email, address, phone,name,role;
 
     public User() {
     }
 
-    public User(int id, String username, String password, String email, String address, String phone, String name) {
+    public User(int id, String username, String password, String email, String address, String phone, String name,String role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -27,6 +27,7 @@ public class User implements Serializable{
         this.address = address;
         this.phone = phone;
         this.name = name;
+        this.role = role;
     }
 
 
@@ -86,10 +87,20 @@ public class User implements Serializable{
         this.name = name;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", address=" + address + ", phone=" + phone + ", name=" + name + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", address=" + address + ", phone=" + phone + ", name=" + name + ", role=" + role + '}';
     }
+
+
 
 
     
