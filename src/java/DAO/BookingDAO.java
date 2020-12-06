@@ -104,6 +104,8 @@ public class BookingDAO extends DAO {
         String bookedroom = "SELECT * FROM bookedroom WHERE Booking_id = ?";
         String bookeditem = "SELECT * FROM bookeditem WHERE BookedRoom_id = ?";
         String bookedservice = "SELECT * FROM bookedservice WHERE BookedRoom_id = ?";
+        String clientSql = "SELECT * FROM user WHERE id = ?";
+        String staffSql = "SELECT * FROM user WHERE id = ?";
         RoomDAO rd = new RoomDAO();
         ItemDAO itemDAO = new ItemDAO();
         ServiceDAO sd = new ServiceDAO();
@@ -115,8 +117,38 @@ public class BookingDAO extends DAO {
             if (rs.next()) {
                 res.setId(id);
                 res.setPaymentDate(rs.getDate("paymentDate"));
-                res.setPaymentType(rs.getString("paymentType"));
+                res.setCreateDate(rs.getTimestamp("createdDate"));
                 int bookingId = rs.getInt("id");
+                ps = conn.prepareStatement(clientSql);
+                ps.setInt(1, rs.getInt("Customer_id"));
+                ResultSet clientRs = ps.executeQuery();
+                if (clientRs.next()) {
+                    User client = new User();
+                    client.setId(clientRs.getInt("id"));
+                    client.setName(clientRs.getString("name"));
+                    client.setUsername(clientRs.getString("username"));
+                    client.setPassword(clientRs.getString("password"));
+                    client.setAddress(clientRs.getString("address"));
+                    client.setEmail(clientRs.getString("email"));
+                    client.setPhone(clientRs.getString("phone"));
+                    client.setRole(clientRs.getString("role"));
+                    res.setClient(client);
+                }
+                ps = conn.prepareStatement(staffSql);
+                ps.setInt(1, rs.getInt("Staff_id"));
+                ResultSet staffRS = ps.executeQuery();
+                if (staffRS.next()) {
+                    User staff = new User();
+                    staff.setId(clientRs.getInt("id"));
+                    staff.setName(clientRs.getString("name"));
+                    staff.setUsername(clientRs.getString("username"));
+                    staff.setPassword(clientRs.getString("password"));
+                    staff.setAddress(clientRs.getString("address"));
+                    staff.setEmail(clientRs.getString("email"));
+                    staff.setPhone(clientRs.getString("phone"));
+                    staff.setRole(clientRs.getString("role"));
+                    res.setStaff(staff);
+                }
                 ps = conn.prepareStatement(bookedroom);
                 ps.setInt(1, bookingId);
                 ResultSet roomSet = ps.executeQuery();
@@ -126,8 +158,8 @@ public class BookingDAO extends DAO {
                     BookedRoom br = new BookedRoom();
                     System.out.println(roomSet.getDate("receiveDate"));
                     br.setId(roomSet.getInt("id"));
-                    br.setReceiveDate(roomSet.getDate("receiveDate"));
-                    br.setReturnDate(roomSet.getDate("returnDate"));
+                    br.setReceiveDate(roomSet.getTimestamp("receiveDate"));
+                    br.setReturnDate(roomSet.getTimestamp("returnDate"));
                     br.setPrice(roomSet.getFloat("price"));
                     br.setRoom(rd.getRoomById(roomId));
                     ps = conn.prepareStatement(bookeditem);
@@ -158,6 +190,104 @@ public class BookingDAO extends DAO {
                 }
             }
             res.setRooms(brList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public ArrayList<Booking> getBookingByCustomerName(String name) {
+        ArrayList<Booking> res = new ArrayList<>();
+        String booking = "SELECT * FROM booking WHERE booking.Customer_id IN( "
+                + "SELECT id FROM user where name LIKE ?) AND booking.paymentDate IS null";
+        String bookedroom = "SELECT * FROM bookedroom WHERE Booking_id = ?";
+        String bookeditem = "SELECT * FROM bookeditem WHERE BookedRoom_id = ?";
+        String bookedservice = "SELECT * FROM bookedservice WHERE BookedRoom_id = ?";
+        String clientSql = "SELECT * FROM user WHERE id = ?";
+        String staffSql = "SELECT * FROM user WHERE id = ?";
+        RoomDAO rd = new RoomDAO();
+        ItemDAO itemDAO = new ItemDAO();
+        ServiceDAO sd = new ServiceDAO();
+        try {
+            PreparedStatement ps = conn.prepareStatement(booking);
+            ps.setString(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Booking book = new Booking();
+                ArrayList<BookedRoom> brList = new ArrayList<>();
+                book.setId(rs.getInt("id"));
+                book.setCreateDate(rs.getTimestamp("createdDate"));
+                int bookingId = rs.getInt("id");
+                ps = conn.prepareStatement(clientSql);
+                ps.setInt(1, rs.getInt("Customer_id"));
+                ResultSet clientRs = ps.executeQuery();
+                if (clientRs.next()) {
+                    User client = new User();
+                    client.setId(clientRs.getInt("id"));
+                    client.setName(clientRs.getString("name"));
+                    client.setUsername(clientRs.getString("username"));
+                    client.setPassword(clientRs.getString("password"));
+                    client.setAddress(clientRs.getString("address"));
+                    client.setEmail(clientRs.getString("email"));
+                    client.setPhone(clientRs.getString("phone"));
+                    client.setRole(clientRs.getString("role"));
+                    book.setClient(client);
+                }
+                ps = conn.prepareStatement(staffSql);
+                ps.setInt(1, rs.getInt("Staff_id"));
+                ResultSet staffRS = ps.executeQuery();
+                if (staffRS.next()) {
+                    User staff = new User();
+                    staff.setId(clientRs.getInt("id"));
+                    staff.setName(clientRs.getString("name"));
+                    staff.setUsername(clientRs.getString("username"));
+                    staff.setPassword(clientRs.getString("password"));
+                    staff.setAddress(clientRs.getString("address"));
+                    staff.setEmail(clientRs.getString("email"));
+                    staff.setPhone(clientRs.getString("phone"));
+                    staff.setRole(clientRs.getString("role"));
+                    book.setStaff(staff);
+                }
+                ps = conn.prepareStatement(bookedroom);
+                ps.setInt(1, bookingId);
+                ResultSet roomSet = ps.executeQuery();
+                while (roomSet.next()) {
+                    int roomId = roomSet.getInt("Room_id");
+                    System.out.println(roomId);
+                    BookedRoom br = new BookedRoom();
+                    System.out.println(roomSet.getDate("receiveDate"));
+                    br.setId(roomSet.getInt("id"));
+                    br.setReceiveDate(roomSet.getTimestamp("receiveDate"));
+                    br.setReturnDate(roomSet.getTimestamp("returnDate"));
+                    br.setPrice(roomSet.getFloat("price"));
+                    br.setRoom(rd.getRoomById(roomId));
+                    ps = conn.prepareStatement(bookeditem);
+                    ps.setInt(1, roomId);
+                    ResultSet itemSet = ps.executeQuery();
+                    while (itemSet.next()) {
+                        BookedItem bi = new BookedItem();
+                        int itemId = itemSet.getInt("Item_id");
+                        bi.setItem(itemDAO.getItemById(itemId));
+                        bi.setPrice(itemSet.getFloat("price"));
+                        bi.setQuantity(itemSet.getInt("quantity"));
+                        System.out.println(bi);
+                        br.getItems().add(bi);
+                    }
+                    ps = conn.prepareStatement(bookedservice);
+                    ps.setInt(1, roomId);
+                    ResultSet serviceSet = ps.executeQuery();
+                    while (serviceSet.next()) {
+                        BookedService bs = new BookedService();
+                        int serviceID = serviceSet.getInt("Service_id");
+                        bs.setService(sd.getServiceById(serviceID));
+                        bs.setPrice(serviceSet.getFloat("price"));
+                        System.out.println(bs);
+                        br.getServices().add(bs);
+                    }
+                    brList.add(br);
+                }
+                book.setRooms(brList);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
