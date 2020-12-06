@@ -16,7 +16,7 @@
         <title>Login Page</title>
     </head>
     <body>
-        <a href="Login.jsp">login</a>|  
-        <a href="Register.jsp">Register</a>  
+        <a href="User/Login.jsp">login</a>|  
+        <a href="User/Register.jsp">Register</a>  
     </body>
 </html>

@@ -14,10 +14,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <% Client client = new Client();
-            client = (Client) request.getAttribute("client_id");
-            System.out.println(client);
+        <% User client = new User();
+            client = (User) session.getAttribute("client_id");
         %>
-        <h1>Hello Customer <%= request.getAttribute("client_id") %>!</h1>
+        <h1>Hello Customer <%= client.getName()%>!</h1>
+        <h2><a href="/PTTK_Karaoke/Book_Room/SearchFreeRoomView.jsp"> Book Room </a></h2>
+        <h2><a href="/PTTK_Karaoke/index.jsp"> Logout </a></h2>
+
     </body>
 </html>

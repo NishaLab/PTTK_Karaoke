@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 6, 2020, 10:33:28 AM
+    Author     : LEGION
+*/
+.search_room{
+    padding-top: 16px;
+}
+
+.room_wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+th, td{
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+.free_room{
+    width: 60%;
+    float: left;
+}
+.selected_room{
+    width: 40%;
+    float: left;
+}

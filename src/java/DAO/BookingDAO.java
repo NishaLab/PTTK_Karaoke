@@ -27,18 +27,16 @@ public class BookingDAO extends DAO {
     }
 
     public boolean addBooking(Booking c) {
-        String boooking = "INSERT INTO booking(paymentType, paymentDate, Customer_id, Staff_id) VALUES(?,?,?,?)";
-        String bookedRoom = "INSERT INTO bookedroom(receivedDate,returnDate,Room_id, Booking_id)VALUES(?,?,?,?,?,?)";
+        String boooking = "INSERT INTO booking(createdDate, Customer_id) VALUES(?,?)";
+        String bookedRoom = "INSERT INTO bookedroom(receiveDate,returnDate,price,Room_id, Booking_id)VALUES(?,?,?,?,?)";
         String bookedService = "INSERT INTO bookedservice(price,Service_id,BookedRoom_id) VALUES(?,?,?)";
         String bookedItem = "INSERT INTO bookeditem(quantity,price,Item_id,BookedRoom_id) VALUES(?,?,?,?)";
         try {
             conn.setAutoCommit(false);
             PreparedStatement ps = conn.prepareStatement(boooking, Statement.RETURN_GENERATED_KEYS);
-            java.sql.Date sqldate = new Date(c.getPaymentDate().getTime());
-            ps.setString(1, c.getPaymentType());
-            ps.setDate(2, sqldate);
-            ps.setInt(3, c.getClient().getId());
-            ps.setInt(4, c.getStaff().getId());
+            java.sql.Date sqldate = new Date(c.getCreateDate().getTime());
+            ps.setDate(1, sqldate);
+            ps.setInt(2, c.getClient().getId());
             ps.executeUpdate();
             ResultSet generatedKeys = ps.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -50,8 +48,10 @@ public class BookingDAO extends DAO {
                         java.sql.Date returnDate = new Date(br.getReturnDate().getTime());
                         ps.setDate(1, receiveDate);
                         ps.setDate(2, returnDate);
-                        ps.setInt(3, br.getRoom().getId());
-                        ps.setInt(4, c.getId());
+                        ps.setFloat(3, br.getPrice());
+                        ps.setInt(4, br.getRoom().getId());
+                        ps.setInt(5, c.getId());
+                        ps.executeUpdate();
                         ResultSet RoomKeys = ps.getGeneratedKeys();
                         if (RoomKeys.next()) {
                             br.setId(generatedKeys.getInt(1));
@@ -61,12 +61,14 @@ public class BookingDAO extends DAO {
                                 ps.setFloat(1, item.getPrice());
                                 ps.setInt(3, br.getId());
                                 ps.setInt(4, c.getId());
+                                ps.executeUpdate();
                             }
                             for (BookedService service : br.getServices()) {
                                 ps = conn.prepareStatement(bookedItem);
                                 ps.setFloat(1, service.getPrice());
                                 ps.setInt(3, br.getId());
                                 ps.setInt(4, c.getId());
+                                ps.executeUpdate();
                             }
                         }
                     } catch (Exception f) {
@@ -151,7 +153,7 @@ public class BookingDAO extends DAO {
                         System.out.println(bs);
                         br.getServices().add(bs);
                     }
-                    
+
                     brList.add(br);
                 }
             }

@@ -20,9 +20,9 @@ public class RoomDAO extends DAO {
         super();
     }
 
-    public ArrayList<Room> searchFreeRoom(Date receivedDate, Date returnDate, String name, String type) {
+    public ArrayList<Room> searchFreeRoom(Date receivedDate, Date returnDate, String type) {
         ArrayList<Room> res = new ArrayList<Room>();
-        String sql = "Select * from room where name LIKE ? AND type = ? AND id NOT IN(\n"
+        String sql = "Select * from room where if(?!='',type = ?,true) AND id NOT IN(\n"
                 + "Select Room_id from bookedroom\n"
                 + "WHERE (receiveDate <= ? AND returnDate >= ?) \n"
                 + "OR(receiveDate < ? AND returnDate >= ?)\n"
@@ -31,7 +31,7 @@ public class RoomDAO extends DAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             java.sql.Timestamp sqlcheckin = new java.sql.Timestamp(receivedDate.getTime());
             java.sql.Timestamp sqlcheckout = new java.sql.Timestamp(returnDate.getTime());
-            ps.setString(1, "%" + name + "%");
+            ps.setString(1, type);
             ps.setString(2, type);
             ps.setTimestamp(3, sqlcheckin);
             ps.setTimestamp(4, sqlcheckin);
@@ -39,6 +39,7 @@ public class RoomDAO extends DAO {
             ps.setTimestamp(6, sqlcheckout);
             ps.setTimestamp(7, sqlcheckin);
             ps.setTimestamp(8, sqlcheckout);
+            System.out.println(ps);
 //            ps.setTimestamp(12, sqlcheckin);
 //            ps.setTimestamp(13, sqlcheckout);
             ResultSet rs = ps.executeQuery();
@@ -55,7 +56,6 @@ public class RoomDAO extends DAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return res;
     }
 

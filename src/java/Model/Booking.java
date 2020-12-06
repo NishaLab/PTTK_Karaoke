@@ -17,9 +17,13 @@ public class Booking implements Serializable{
     private ArrayList<BookedRoom> rooms;
     private String paymentType;
     private Date paymentDate;
-    private Client client;
-    private Staff staff;
+    private Date createDate;
+    private User client;
+    private User staff;
     public Booking() {
+        rooms = new ArrayList<>();
+        client = new User();
+        staff = new User();
     }
 
     public Booking(int id, ArrayList<BookedRoom> rooms, String paymentType, Date paymentDate, Client client, Staff staff) {
@@ -31,17 +35,56 @@ public class Booking implements Serializable{
         this.staff = staff;
     }
 
-    public Client getClient() {
+    public Booking(int id, ArrayList<BookedRoom> rooms, String paymentType, Date paymentDate, Date createDate, User client, User staff) {
+        this.id = id;
+        this.rooms = rooms;
+        this.paymentType = paymentType;
+        this.paymentDate = paymentDate;
+        this.createDate = createDate;
+        this.client = client;
+        this.staff = staff;
+    }
+
+    public Booking(int id, ArrayList<BookedRoom> rooms, String paymentType, Date paymentDate, User client, User staff) {
+        this.id = id;
+        this.rooms = rooms;
+        this.paymentType = paymentType;
+        this.paymentDate = paymentDate;
+        this.client = client;
+        this.staff = staff;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public User getClient() {
         return client;
     }
+
+    public void setClient(User client) {
+        this.client = client;
+    }
+
+    public User getStaff() {
+        return staff;
+    }
+
+    public void setStaff(User staff) {
+        this.staff = staff;
+    }
+
+
 
     public void setClient(Client client) {
         this.client = client;
     }
 
-    public Staff getStaff() {
-        return staff;
-    }
+
 
     public void setStaff(Staff staff) {
         this.staff = staff;
