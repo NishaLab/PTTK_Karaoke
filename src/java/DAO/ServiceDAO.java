@@ -42,6 +42,28 @@ public class ServiceDAO extends DAO {
         return res;
     }
 
+    public ArrayList<Service> getAllService() {
+        ArrayList<Service> res = new ArrayList<Service>();
+        String sql = "SELECT * FROM Service";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Service service = new Service();
+                service.setId(rs.getInt("id"));
+                service.setName(rs.getString("name"));
+                service.setPrice(rs.getFloat("price"));
+                service.setDesc(rs.getString("desc"));
+                res.add(service);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+
     public Service getServiceById(int id) {
         Service service = new Service();
         String sql = "SELECT * FROM service WHERE id = ?";

@@ -23,6 +23,8 @@
             session.setAttribute("client_id", user);
             request.getRequestDispatcher("MainCustomerView.jsp").forward(request, response);
         } else if (user.getRole().equalsIgnoreCase("receptionist")) {
+            session.setAttribute("staff_id", user);
+
             response.sendRedirect("MainReceptionistView.jsp");
         } else {
             response.sendRedirect("index.jsp");

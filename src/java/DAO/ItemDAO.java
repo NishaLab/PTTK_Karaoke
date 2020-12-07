@@ -44,6 +44,28 @@ public class ItemDAO extends DAO {
         return res;
     }
 
+    public ArrayList<Item> getAllItem() {
+        ArrayList<Item> res = new ArrayList<Item>();
+        String sql = "SELECT * FROM Item";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Item item = new Item();
+                item.setId(rs.getInt("id"));
+                item.setName(rs.getString("name"));
+                item.setType(rs.getString("type"));
+                item.setDesc(rs.getString("desc"));
+                item.setPrice(rs.getFloat("price"));
+                res.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     public Item getItemById(int id) {
         Item item = new Item();
         String sql = "SELECT * FROM item WHERE id = ?";
