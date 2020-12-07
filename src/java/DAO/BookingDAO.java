@@ -316,7 +316,7 @@ public class BookingDAO extends DAO {
     }
 
     public boolean updateBooking(Booking booking) {
-        String bookingSQL = "UPDATE `booking` SET paymentType = ?, paymentDate = ? WHERE (`id` = ?)";
+        String bookingSQL = "UPDATE `booking` SET paymentType = ?, paymentDate = ?, Staff_id = ? WHERE (`id` = ?)";
         String bookedService = "INSERT INTO bookedservice(price,Service_id,BookedRoom_id) VALUES(?,?,?)";
         String bookedItem = "INSERT INTO bookeditem(quantity,price,Item_id,BookedRoom_id) VALUES(?,?,?,?)";
         ItemDAO itemDAO = new ItemDAO();
@@ -327,7 +327,8 @@ public class BookingDAO extends DAO {
             java.sql.Date paymentDate = new Date(booking.getPaymentDate().getTime());
             ps.setString(1, booking.getPaymentType());
             ps.setDate(2, paymentDate);
-            ps.setInt(3, booking.getId());
+            ps.setInt(3, booking.getStaff().getId());
+            ps.setInt(4, booking.getId());
             System.out.println(ps);
             ps.executeUpdate();
             for (BookedRoom room : booking.getRooms()) {
