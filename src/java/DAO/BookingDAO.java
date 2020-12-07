@@ -31,6 +31,11 @@ public class BookingDAO extends DAO {
         String bookedRoom = "INSERT INTO bookedroom(receiveDate,returnDate,price,Room_id, Booking_id)VALUES(?,?,?,?,?)";
         String bookedService = "INSERT INTO bookedservice(price,Service_id,BookedRoom_id) VALUES(?,?,?)";
         String bookedItem = "INSERT INTO bookeditem(quantity,price,Item_id,BookedRoom_id) VALUES(?,?,?,?)";
+        String check = "Select * from room where id = ? AND id IN(\n"
+                + "Select Room_id from bookedroom\n"
+                + "WHERE (receiveDate <= ? AND returnDate >= ?) \n"
+                + "OR(receiveDate < ? AND returnDate >= ?)\n"
+                + "OR(receiveDate >= ? AND returnDate <= ?))\n";
         try {
             conn.setAutoCommit(false);
             PreparedStatement ps = conn.prepareStatement(boooking, Statement.RETURN_GENERATED_KEYS);
@@ -42,6 +47,22 @@ public class BookingDAO extends DAO {
             if (generatedKeys.next()) {
                 c.setId(generatedKeys.getInt(1));
                 for (BookedRoom br : c.getRooms()) {
+                    ps = conn.prepareStatement(check);
+                    java.sql.Timestamp sqlcheckin = new java.sql.Timestamp(br.getReceiveDate().getTime());
+                    java.sql.Timestamp sqlcheckout = new java.sql.Timestamp(br.getReturnDate().getTime());
+                    ps.setInt(1, br.getRoom().getId());
+                    ps.setTimestamp(2, sqlcheckin);
+                    ps.setTimestamp(3, sqlcheckin);
+                    ps.setTimestamp(4, sqlcheckout);
+                    ps.setTimestamp(5, sqlcheckout);
+                    ps.setTimestamp(6, sqlcheckin);
+                    ps.setTimestamp(7, sqlcheckout);
+                    System.out.println(ps);
+                    ResultSet checkrs = ps.executeQuery();
+                    if(checkrs.next()){
+                        conn.rollback();
+                        return false;
+                    }
                     try {
                         ps = conn.prepareStatement(bookedRoom, Statement.RETURN_GENERATED_KEYS);
                         java.sql.Date receiveDate = new Date(br.getReceiveDate().getTime());

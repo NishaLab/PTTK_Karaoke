@@ -12,10 +12,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Booking Page</title>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="../CSS/Booking.css">
+        <link rel="stylesheet" href="../CSS/Checkout.css">
     </head>
     <body>
         <div class = "container">
@@ -37,6 +39,7 @@
                     pageContext.setAttribute("client", client);
                 }
             %>
+            <h1> Booking</h1>
             <div class = "infor_wrapper container">
                 <div class = "client_wrapper">
                     <div class = "row">
@@ -61,7 +64,7 @@
             </div>
 
             <div class = "table_wrapper container">
-                <div class = "selected_room">
+                <div>
                     <h3> Selected Room </h3>
                     <table width="600px">
                         <thead>
@@ -104,8 +107,60 @@
                     </table>
                 </div>
             </div>
-            <div>
-                <form name="confirm" action="doBooking.jsp" method="POST">
+            <div class ="item_service_wrapper container">
+                <div class = "items">
+                    <div class ="row">
+                        <h3 class = "col col-6"> Booked Items </h3>
+                        <div class= "col col-6">
+                            <form name="confirm" action="AddItemView.jsp" method="POST" >
+                                <input type="hidden" id="add_item" name="post_content" value="add_item">
+                                <input type="submit" value="Add Item" name="confirm" class ="btn btn-primary" />
+                            </form>
+                        </div>
+                    </div>
+                    <table border="0" width="450px">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Room</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class = "services">
+                    <div class ="row">
+                        <h3 class = "col col-6"> Booked Items </h3>
+                        <div class= "col col-6">
+                            <form name="confirm" action="AddServiceView.jsp" method="POST" >
+                                <input type="hidden" id="add_service" name="post_content" value="add_service">
+                                <input type="submit" value="Add Service" name="confirm" class ="btn btn-primary" />
+                            </form>
+                        </div>
+                    </div>                    
+                    <table width="450px">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Room</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class = "container">
+                <form name="confirm" action="doBooking.jsp" method="POST" class = "confirm-btt">
                     <input type="hidden" id="search_room" name="post_content" value="confirm">
                     <input type="submit" value="Confirm" name="confirm" class ="btn btn-success" />
                 </form>

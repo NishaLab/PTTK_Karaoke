@@ -64,6 +64,7 @@
         ArrayList<BookedRoom> selects = (ArrayList) session.getAttribute("selected_rooms");
         booking.setRooms(selects);
         session.setAttribute("booking", booking);
+        session.setAttribute("save", null);
         response.sendRedirect("BookingView.jsp");
     }
 %>

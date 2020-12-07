@@ -24,7 +24,10 @@
             session.setAttribute("selected_rooms", null);
             session.setAttribute("booking", null);
             session.setAttribute("free_rooms", null);
+            session.setAttribute("save", true);
             return;
+        } else {
+            session.setAttribute("save", false);
         }
         response.sendRedirect("BookingView.jsp");
 
