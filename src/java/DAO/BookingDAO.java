@@ -59,7 +59,7 @@ public class BookingDAO extends DAO {
                     ps.setTimestamp(7, sqlcheckout);
                     System.out.println(ps);
                     ResultSet checkrs = ps.executeQuery();
-                    if(checkrs.next()){
+                    if (checkrs.next()) {
                         conn.rollback();
                         return false;
                     }
@@ -79,16 +79,16 @@ public class BookingDAO extends DAO {
                             for (BookedItem item : br.getItems()) {
                                 ps = conn.prepareStatement(bookedItem);
                                 ps.setInt(1, item.getQuantity());
-                                ps.setFloat(1, item.getPrice());
+                                ps.setFloat(2, item.getPrice());
                                 ps.setInt(3, br.getId());
                                 ps.setInt(4, c.getId());
                                 ps.executeUpdate();
                             }
                             for (BookedService service : br.getServices()) {
-                                ps = conn.prepareStatement(bookedItem);
+                                ps = conn.prepareStatement(bookedService);
                                 ps.setFloat(1, service.getPrice());
-                                ps.setInt(3, br.getId());
-                                ps.setInt(4, c.getId());
+                                ps.setInt(2, br.getId());
+                                ps.setInt(3, c.getId());
                                 ps.executeUpdate();
                             }
                         }
@@ -313,5 +313,52 @@ public class BookingDAO extends DAO {
             e.printStackTrace();
         }
         return res;
+    }
+
+    public boolean updateBooking(Booking booking) {
+        String bookingSQL = "UPDATE `booking` SET paymentType = ?, paymentDate = ? WHERE (`id` = ?)";
+        String bookedService = "INSERT INTO bookedservice(price,Service_id,BookedRoom_id) VALUES(?,?,?)";
+        String bookedItem = "INSERT INTO bookeditem(quantity,price,Item_id,BookedRoom_id) VALUES(?,?,?,?)";
+        ItemDAO itemDAO = new ItemDAO();
+        ServiceDAO sd = new ServiceDAO();
+        try {
+            conn.setAutoCommit(false);
+            PreparedStatement ps = conn.prepareStatement(bookingSQL);
+            java.sql.Date paymentDate = new Date(booking.getPaymentDate().getTime());
+            ps.setString(1, booking.getPaymentType());
+            ps.setDate(2, paymentDate);
+            ps.setInt(3, booking.getId());
+            System.out.println(ps);
+            ps.executeUpdate();
+            for (BookedRoom room : booking.getRooms()) {
+                int roomId = room.getRoom().getId();
+                System.out.println(roomId);
+                for (BookedItem item : room.getItems()) {
+                    ps = conn.prepareStatement(bookedItem);
+                    ps.setInt(1, item.getQuantity());
+                    ps.setFloat(2, item.getPrice());
+                    ps.setInt(3, item.getItem().getId());
+                    ps.setInt(4, room.getId());
+                    ps.executeUpdate();
+                }
+                for (BookedService service : room.getServices()) {
+                    ps = conn.prepareStatement(bookedService);
+                    ps.setFloat(1, service.getPrice());
+                    ps.setInt(2, service.getService().getId());
+                    ps.setInt(3, room.getId());
+                    ps.executeUpdate();
+                }
+            }
+            conn.commit();
+        } catch (Exception e) {
+            try {
+                conn.rollback();
+            } catch (Exception f) {
+                f.printStackTrace();
+            }
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

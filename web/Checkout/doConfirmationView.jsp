@@ -12,5 +12,9 @@
     booking.setPaymentType(request.getParameter("paymentType"));
     booking.setPaymentDate(new Date());
     BookingDAO dao = new BookingDAO();
-    
+    if (dao.updateBooking(booking)) {
+        response.sendRedirect("../User/MainReceptionistView.jsp");
+    } else {
+        response.sendRedirect("ConfirmationView.jsp");
+    }
 %>
