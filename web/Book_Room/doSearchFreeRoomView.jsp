@@ -40,7 +40,7 @@
         } else {
             ArrayList<BookedRoom> selects = (ArrayList) session.getAttribute("selected_rooms");
             for (BookedRoom select : selects) {
-                if (select.getId() == Integer.parseInt(request.getParameter("room_id"))) {
+                if (select.getRoom().getId() == Integer.parseInt(request.getParameter("room_id"))) {
                     response.sendRedirect("SearchFreeRoomView.jsp");
                     return;
                 }

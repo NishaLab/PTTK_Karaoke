@@ -27,6 +27,9 @@
                     System.out.println(booking);
                     pageContext.setAttribute("booking", booking);
                     session.setAttribute("selected_rooms", booking.getRooms());
+                    for (BookedRoom room : booking.getRooms()) {
+                            System.out.println(room);
+                        }
                     pageContext.setAttribute("selected_rooms", booking.getRooms());
                     float total = 0;
                     for (BookedRoom room : booking.getRooms()) {
@@ -151,7 +154,6 @@
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Room</th>
-                                <th>Option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -162,17 +164,9 @@
                                     <th><c:out value="${current.getQuantity()}" /></th>
                                     <th><c:out value="${current.getPrice()}" /></th>
                                     <th><c:out value="${confirm_item_rooms.get(loop.index).getName()}"/></th>
-                                    <th>
-                                        <form name="select_room" action="doBookingView.jsp" method="POST">
-                                            <input type="hidden" id="delete_item" name="post_content" value="delete_item">
-                                            <input type="hidden" id="item_id" name="item_id" value="${loop.index}">
-                                            <input type="submit" value="Delete" name="choose" class ="btn btn-danger" style ="width: 100%" />
-                                        </form>                                    
-                                    </th>
-                                </tr>
                             </c:forEach>
                             <tr>
-                                <th colspan="5"> Total </th>
+                                <th colspan="4"> Total </th>
                                 <th colspan="2"><c:out value="${item_total}"/> </th>
                             </tr>
                         </tbody>
@@ -195,7 +189,6 @@
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Room</th>
-                                <th>Option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -205,17 +198,10 @@
                                     <th><c:out value="${current.getService().name}" /></th>
                                     <th><c:out value="${current.getPrice()}" /></th>
                                     <th><c:out value="${confirm_service_rooms.get(loop.index).getName()}"/></th>
-                                    <th>
-                                        <form name="select_room" action="doBookingView.jsp" method="POST">
-                                            <input type="hidden" id="delete_item" name="post_content" value="delete_serivce">
-                                            <input type="hidden" id="item_id" name="item_id" value="${loop.index}">
-                                            <input type="submit" value="Delete" name="choose" class ="btn btn-danger" style ="width: 100%" />
-                                        </form>                                    
-                                    </th>
                                 </tr>
                             </c:forEach>
                             <tr>
-                                <th colspan="4"> Total </th>
+                                <th colspan="3"> Total </th>
                                 <th colspan="2"><c:out value="${service_total}"/> </th>
                             </tr>
                         </tbody>

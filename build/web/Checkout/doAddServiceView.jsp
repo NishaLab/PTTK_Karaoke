@@ -32,6 +32,9 @@
             rooms.add(selects.get(room_id).getRoom());
             session.setAttribute("booked_services", booked_services);
         }
+        for (BookedRoom select : selects) {
+            System.out.println(select);
+        }
         session.setAttribute("service_rooms", rooms);
         session.setAttribute("selected_rooms", selects);
         response.sendRedirect("AddServiceView.jsp");
@@ -39,6 +42,16 @@
         ArrayList<BookedService> booked_services = (ArrayList<BookedService>) session.getAttribute("booked_services");
         ArrayList<Room> rooms = (ArrayList<Room>) session.getAttribute("service_rooms");
         int index = Integer.parseInt(request.getParameter("service_id"));
+        ArrayList<BookedRoom> selects = (ArrayList) session.getAttribute("selected_rooms");
+        BookedService services = booked_services.get(index);
+        for (BookedRoom select : selects) {
+            ArrayList<BookedService> service_list = select.getServices();
+            for (BookedService service : select.getServices()) {
+                if (service.getService().getId() == services.getService().getId()) {
+                    service_list.remove(service);
+                }
+            }
+        }
         booked_services.remove(index);
         rooms.remove(index);
         response.sendRedirect("AddServiceView.jsp");

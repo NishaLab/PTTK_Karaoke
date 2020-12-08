@@ -14,10 +14,6 @@
         response.sendRedirect("AddServiceView.jsp");
     } else if (request.getParameter("post_content").equalsIgnoreCase("confirm")) {
         Booking booking = (Booking) session.getAttribute("booking");
-        ArrayList<BookedItem> list_item = new ArrayList<BookedItem>();
-        list_item = (ArrayList<BookedItem>) session.getAttribute("confirm_booked_items");
-        ArrayList<BookedService> list_service = new ArrayList<BookedService>();
-        list_service = (ArrayList<BookedService>) session.getAttribute("confirm_booked_services");
         ArrayList<BookedRoom> br = (ArrayList<BookedRoom>) session.getAttribute("selected_rooms");
         booking.setRooms(br);
         session.setAttribute("booking", booking);

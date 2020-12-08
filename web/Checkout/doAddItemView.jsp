@@ -34,16 +34,28 @@
             session.setAttribute("booked_items", booked_items);
         }
         session.setAttribute("item_rooms", rooms);
+        for (BookedRoom select : selects) {
+            System.out.println(select);
+        }
         session.setAttribute("selected_rooms", selects);
         response.sendRedirect("AddItemView.jsp");
     } else if (request.getParameter("post_content").equalsIgnoreCase("delete")) {
         ArrayList<BookedItem> booked_items = (ArrayList<BookedItem>) session.getAttribute("booked_items");
         ArrayList<Room> rooms = (ArrayList<Room>) session.getAttribute("item_rooms");
-
         int index = Integer.parseInt(request.getParameter("item_id"));
+        ArrayList<BookedRoom> selects = (ArrayList) session.getAttribute("selected_rooms");
+        BookedItem items = booked_items.get(index);
+        for (BookedRoom select : selects) {
+            ArrayList<BookedItem> item_list = select.getItems();
+
+            for (BookedItem item : item_list) {
+                if (items.getItem().getId() == item.getItem().getId()) {
+                    item_list.remove(item);
+                }
+            }
+        }
         booked_items.remove(index);
         rooms.remove(index);
-
         response.sendRedirect("AddItemView.jsp");
     } else if (request.getParameter("post_content").equalsIgnoreCase("confirm")) {
         ArrayList<BookedItem> booked_items = (ArrayList<BookedItem>) session.getAttribute("booked_items");
@@ -52,5 +64,5 @@
         session.setAttribute("confirm_item_rooms", rooms);
         response.sendRedirect("BookingView.jsp");
 
-    } 
+    }
 %>

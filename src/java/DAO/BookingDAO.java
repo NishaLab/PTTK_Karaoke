@@ -65,10 +65,10 @@ public class BookingDAO extends DAO {
                     }
                     try {
                         ps = conn.prepareStatement(bookedRoom, Statement.RETURN_GENERATED_KEYS);
-                        java.sql.Date receiveDate = new Date(br.getReceiveDate().getTime());
-                        java.sql.Date returnDate = new Date(br.getReturnDate().getTime());
-                        ps.setDate(1, receiveDate);
-                        ps.setDate(2, returnDate);
+                        java.sql.Timestamp receiveDate = new java.sql.Timestamp(br.getReceiveDate().getTime());
+                        java.sql.Timestamp returnDate = new java.sql.Timestamp(br.getReturnDate().getTime());
+                        ps.setTimestamp(1, receiveDate);
+                        ps.setTimestamp(2, returnDate);
                         ps.setFloat(3, br.getPrice());
                         ps.setInt(4, br.getRoom().getId());
                         ps.setInt(5, c.getId());
@@ -174,7 +174,8 @@ public class BookingDAO extends DAO {
                 ps.setInt(1, bookingId);
                 ResultSet roomSet = ps.executeQuery();
                 while (roomSet.next()) {
-                    int roomId = roomSet.getInt("Room_id");
+                    int roomId = roomSet.getInt("id");
+                    int booked_room = roomSet.getInt("Room_id");
                     System.out.println(roomId);
                     BookedRoom br = new BookedRoom();
                     System.out.println(roomSet.getDate("receiveDate"));
@@ -182,7 +183,7 @@ public class BookingDAO extends DAO {
                     br.setReceiveDate(roomSet.getTimestamp("receiveDate"));
                     br.setReturnDate(roomSet.getTimestamp("returnDate"));
                     br.setPrice(roomSet.getFloat("price"));
-                    br.setRoom(rd.getRoomById(roomId));
+                    br.setRoom(rd.getRoomById(booked_room));
                     ps = conn.prepareStatement(bookeditem);
                     ps.setInt(1, roomId);
                     ResultSet itemSet = ps.executeQuery();
@@ -214,6 +215,7 @@ public class BookingDAO extends DAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println(res);
         return res;
     }
 
@@ -274,15 +276,16 @@ public class BookingDAO extends DAO {
                 ps.setInt(1, bookingId);
                 ResultSet roomSet = ps.executeQuery();
                 while (roomSet.next()) {
-                    int roomId = roomSet.getInt("Room_id");
-                    System.out.println(roomId);
+                    int roomId = roomSet.getInt("id");
+                    int booked_room = roomSet.getInt("Room_id");
+                    System.out.println("Booked Room ID:" + roomId);
                     BookedRoom br = new BookedRoom();
                     System.out.println(roomSet.getDate("receiveDate"));
                     br.setId(roomSet.getInt("id"));
                     br.setReceiveDate(roomSet.getTimestamp("receiveDate"));
                     br.setReturnDate(roomSet.getTimestamp("returnDate"));
                     br.setPrice(roomSet.getFloat("price"));
-                    br.setRoom(rd.getRoomById(roomId));
+                    br.setRoom(rd.getRoomById(booked_room));
                     ps = conn.prepareStatement(bookeditem);
                     ps.setInt(1, roomId);
                     ResultSet itemSet = ps.executeQuery();
