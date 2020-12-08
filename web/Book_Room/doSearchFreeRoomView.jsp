@@ -10,6 +10,9 @@
 <!DOCTYPE html>
 <%
     if (request.getParameter("post_content").equalsIgnoreCase("search_room")) {
+        session.setAttribute("querry_receive", request.getParameter("receive-time"));
+        session.setAttribute("querry_return", request.getParameter("return-time"));
+
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
         Date receive_date = (Date) formatter.parse(request.getParameter("receive-time"));
         Date return_date = (Date) formatter.parse(request.getParameter("return-time"));

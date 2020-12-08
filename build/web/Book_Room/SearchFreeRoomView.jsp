@@ -30,6 +30,10 @@
                     ArrayList<BookedRoom> rooms = (ArrayList<BookedRoom>) session.getAttribute("selected_rooms");
                     pageContext.setAttribute("selected_rooms", rooms);
                 }
+                if (session.getAttribute("querry_receive") != null && session.getAttribute("querry_return") != null) {
+                    pageContext.setAttribute("querry_receive", session.getAttribute("querry_receive"));
+                    pageContext.setAttribute("querry_return", session.getAttribute("querry_return"));
+                }
             %>
             <form name="search_room" action="doSearchFreeRoomView.jsp" method="POST">
                 <input type="hidden" id="search_room" name="post_content" value="search_room">
@@ -47,7 +51,7 @@
                         <div class = "col col-6">
                             <label style="display:block;"> Receive Time </label>
                             <input type="datetime-local" id="receive-time"
-                                   name="receive-time"/>
+                                   name="receive-time"><c:out value="${querry_receive}"></c:out>
                         </div>
                         <div class = "col col-6">
                             <label style="display:block;"> Return Time </label>
