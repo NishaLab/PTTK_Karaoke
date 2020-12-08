@@ -22,8 +22,8 @@
             ArrayList<Booking> bookings = new ArrayList<>();
             bookings = dao.getBookingByCustomerName(name);
             for (Booking booking : bookings) {
-                    System.out.println(booking);
-                }
+                System.out.println(booking);
+            }
             session.setAttribute("bookings", bookings);
             session.setAttribute("booking", null);
         } else {
@@ -35,6 +35,7 @@
     } else if (request.getParameter("post_content").equalsIgnoreCase("choose")) {
         response.sendRedirect("BookingView.jsp");
     } else if (request.getParameter("post_content").equalsIgnoreCase("choose_list")) {
+        System.out.println(request.getParameter("booking_id"));
         int booking_id = Integer.parseInt(request.getParameter("booking_id"));
         ArrayList<Booking> bookings = (ArrayList<Booking>) session.getAttribute("bookings");
         for (Booking booking : bookings) {
@@ -50,7 +51,7 @@
         for (Booking booking : bookings) {
             if (booking_id == booking.getId()) {
                 session.setAttribute("booking", booking);
-                response.sendRedirect("BookingView.jsp");
+                response.sendRedirect("DetailBookingView.jsp");
                 return;
             }
         }

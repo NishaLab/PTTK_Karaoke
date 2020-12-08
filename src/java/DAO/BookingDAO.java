@@ -309,6 +309,7 @@ public class BookingDAO extends DAO {
                     brList.add(br);
                 }
                 book.setRooms(brList);
+                res.add(book);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -317,6 +318,7 @@ public class BookingDAO extends DAO {
     }
 
     public boolean updateBooking(Booking booking) {
+        System.out.println(booking);
         String bookingSQL = "UPDATE `booking` SET paymentType = ?, paymentDate = ?, Staff_id = ? WHERE (`id` = ?)";
         String bookedService = "INSERT INTO bookedservice(price,Service_id,BookedRoom_id) VALUES(?,?,?)";
         String bookedItem = "INSERT INTO bookeditem(quantity,price,Item_id,BookedRoom_id) VALUES(?,?,?,?)";

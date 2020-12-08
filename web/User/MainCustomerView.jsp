@@ -33,7 +33,8 @@
             %>
         </c:if>
         <h2><a href="/PTTK_Karaoke/Book_Room/SearchFreeRoomView.jsp"> Book Room </a></h2>
-        <h2><a href="/PTTK_Karaoke/index.jsp"> Logout </a></h2>
-
+        <form name="log_out" action="Logout.jsp">
+            <input type="submit" value="Log Out"  class ="btn btn-primary"/> 
+        </form>
     </body>
 </html>

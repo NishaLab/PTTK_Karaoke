@@ -13,8 +13,10 @@
     booking.setPaymentDate(new Date());
     BookingDAO dao = new BookingDAO();
     if (dao.updateBooking(booking)) {
+        session.setAttribute("save", true);
         response.sendRedirect("../User/MainReceptionistView.jsp");
     } else {
+        session.setAttribute("save", true);
         response.sendRedirect("ConfirmationView.jsp");
     }
 %>

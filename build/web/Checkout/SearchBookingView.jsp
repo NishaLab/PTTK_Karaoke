@@ -84,14 +84,14 @@
                                     <th>
                                         <form name="select_room" action="doSearchBookingView.jsp" method="POST">
                                             <input type="hidden" id="search_room" name="post_content" value="detail_list">
-                                            <input type="hidden" id="room_id" name="room_id" value="${current.getId()}">
+                                            <input type="hidden" id="booking_id" name="booking_id" value="${current.getId()}">
                                             <input type="submit" value="Detail" name="Detail" class ="btn btn-info" style ="width: 100%" />
                                         </form>                                    
                                     </th>
                                     <th>
                                         <form name="select_room" action="doSearchBookingView.jsp" method="POST">
                                             <input type="hidden" id="search_room" name="post_content" value="choose_list">
-                                            <input type="hidden" id="room_id" name="room_id" value="${current.getId()}">
+                                            <input type="hidden" id="booking_id" name="booking_id" value="${current.getId()}">
                                             <input type="submit" value="Choose" name="Choose" class ="btn btn-primary" style ="width: 100%" />
                                         </form>                                    
                                     </th>

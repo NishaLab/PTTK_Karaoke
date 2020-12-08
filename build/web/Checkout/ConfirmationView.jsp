@@ -32,6 +32,10 @@
             }
         %>
         <div class = "container">
+
+            <form action="BookingView.jsp">
+                <input type="submit" value="Back" class="btn btn-primary"/>
+            </form>  
             <c:if test ="${save != null && save == false}">
                 <div class="alert alert-danger alert-dismissible">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
