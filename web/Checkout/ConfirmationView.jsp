@@ -26,9 +26,21 @@
             Booking booking = (Booking) session.getAttribute("booking");
             pageContext.setAttribute("staff", booking.getStaff().getName());
             pageContext.setAttribute("client", booking.getClient().getName());
-
+            if (session.getAttribute("save") != null) {
+                boolean save = (boolean) session.getAttribute("save");
+                pageContext.setAttribute("save", save);
+            }
         %>
         <div class = "container">
+            <c:if test ="${save != null && save == false}">
+                <div class="alert alert-danger alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Danger!</strong> Can not Update Booking
+                </div>
+                <%
+                    session.setAttribute("save", null);
+                %>
+            </c:if>
             <form name="finish" action="doConfirmationView.jsp" method="POST">
                 <h1>Confirmation View</h1>
                 <input type="hidden" id="confirm_view" name="post_content" value="confirm">

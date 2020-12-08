@@ -31,5 +31,17 @@
         System.out.println(staff);
         response.sendRedirect("ConfirmationView.jsp");
 
+    } else if (request.getParameter("post_content").equalsIgnoreCase("add_item")) {
+        if (session.getAttribute("confirm_item_rooms") == null) {
+            ArrayList<BookedItem> booked_items = (ArrayList<BookedItem>) session.getAttribute("confirm_item_rooms");
+            session.setAttribute("booked_items", booked_items);
+        }
+        response.sendRedirect("AddItemView.jsp");
+    }else if (request.getParameter("post_content").equalsIgnoreCase("add_service")) {
+        if (session.getAttribute("confirm_booked_services") == null) {
+            ArrayList<BookedItem> confirm_booked_services = (ArrayList<BookedItem>) session.getAttribute("confirm_booked_services");
+            session.setAttribute("booked_services", confirm_booked_services);
+        }
+        response.sendRedirect("AddServiceView.jsp");
     }
 %>

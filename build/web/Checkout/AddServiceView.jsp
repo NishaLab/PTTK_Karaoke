@@ -39,6 +39,9 @@
 
         %>
         <div class="containter">
+            <form action="BookingView.jsp">
+                <input type="submit" value="Back" class="btn btn-primary"/>
+            </form> 
             <form name="add_service" action="doAddServiceView.jsp" method="POST">
                 <input type="hidden" id="search_room" name="post_content" value="add_service">
                 <div class = "search_room container">

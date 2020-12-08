@@ -70,6 +70,9 @@
                 }
             %>
             <h1> Booking</h1>
+            <form action="SearchBookingView.jsp">
+                <input type="submit" value="Back" class="btn btn-primary"/>
+            </form>            
             <div class = "infor_wrapper container">
                 <div class = "client_wrapper">
                     <div class = "row">
@@ -134,7 +137,7 @@
                     <div class ="row">
                         <h3 class = "col col-6"> Booked Items </h3>
                         <div class= "col col-6">
-                            <form name="confirm" action="AddItemView.jsp" method="POST" >
+                            <form name="confirm" action="doBookingView.jsp" method="POST" >
                                 <input type="hidden" id="add_item" name="post_content" value="add_item">
                                 <input type="submit" value="Add Item" name="confirm" class ="btn btn-primary" />
                             </form>

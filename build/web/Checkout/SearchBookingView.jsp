@@ -21,7 +21,10 @@
     </head>
     <body>
         <div class ="container">
-            <h1>Search Free Room View!</h1>
+            <h1>Search Booking View!</h1>
+            <form action="../User/MainReceptionistView.jsp">
+                <input type="submit" value="Back" class="btn btn-primary"/>
+            </form>            
             <%
                 if (session.getAttribute("bookings") != null) {
                     ArrayList<Booking> bookings = (ArrayList<Booking>) session.getAttribute("bookings");
@@ -80,16 +83,16 @@
                                     <th><c:out value="${current.getClient().getName()}"/></th>
                                     <th>
                                         <form name="select_room" action="doSearchBookingView.jsp" method="POST">
-                                            <input type="hidden" id="search_room" name="post_content" value="detail">
+                                            <input type="hidden" id="search_room" name="post_content" value="detail_list">
                                             <input type="hidden" id="room_id" name="room_id" value="${current.getId()}">
-                                            <input type="submit" value="Delete" name="choose" class ="btn btn-info" style ="width: 100%" />
+                                            <input type="submit" value="Detail" name="Detail" class ="btn btn-info" style ="width: 100%" />
                                         </form>                                    
                                     </th>
                                     <th>
                                         <form name="select_room" action="doSearchBookingView.jsp" method="POST">
                                             <input type="hidden" id="search_room" name="post_content" value="choose_list">
                                             <input type="hidden" id="room_id" name="room_id" value="${current.getId()}">
-                                            <input type="submit" value="Delete" name="choose" class ="btn btn-primary" style ="width: 100%" />
+                                            <input type="submit" value="Choose" name="Choose" class ="btn btn-primary" style ="width: 100%" />
                                         </form>                                    
                                     </th>
                                 </tr>
@@ -103,7 +106,7 @@
                                         <form name="select_room" action="doSearchBookingView.jsp" method="POST">
                                             <input type="hidden" id="search_room" name="post_content" value="detail">
                                             <input type="hidden" id="room_id" name="room_id" value="${booking.getId()}">
-                                            <input type="submit" value="Delete" name="choose" class ="btn btn-info" style ="width: 100%" />
+                                            <input type="submit" value="Detail" name="choose" class ="btn btn-info" style ="width: 100%" />
                                         </form>                                    
                                     </th>
                                     <th>

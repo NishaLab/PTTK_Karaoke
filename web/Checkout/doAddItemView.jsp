@@ -52,5 +52,5 @@
         session.setAttribute("confirm_item_rooms", rooms);
         response.sendRedirect("BookingView.jsp");
 
-    }
+    } 
 %>

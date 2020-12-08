@@ -3,16 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/src/java/DAO/DAO.java</file>
-            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/src/java/Model/Booking.java</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Checkout/AddItemView.jsp</file>
             <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Checkout/BookingView.jsp</file>
-            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Checkout/SearchBookingView.jsp</file>
-            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Checkout/doBookingView.jsp</file>
-            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/src/java/DAO/UserDAO.java</file>
             <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Book_Room/doSearchFreeRoomView.jsp</file>
-            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Book_Room/SearchFreeRoomView.jsp</file>
-            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Book_Room/doBooking.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Checkout/AddServiceView.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Checkout/doConfirmationView.jsp</file>
             <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Book_Room/BookingView.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Checkout/doAddServiceView.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/User/MainCustomerView.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/doLogin.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Checkout/doBookingView.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Book_Room/SearchFreeRoomView.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Checkout/ConfirmationView.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Book_Room/doBooking.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Checkout/doAddItemView.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/index.jsp</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/src/java/DAO/ServiceDAO.java</file>
+            <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/Checkout/doSearchBookingView.jsp</file>
             <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/src/java/DAO/BookingDAO.java</file>
             <file>file:/C:/Users/LEGION/Documents/NetBeansProjects/PTTK_Karaoke/web/User/doLogin.jsp</file>
         </group>

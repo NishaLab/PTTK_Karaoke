@@ -121,7 +121,7 @@ public class BookingDAO extends DAO {
 
     public Booking getBooking(int id) {
         Booking res = new Booking();
-        String booking = "SELECT * FROM booking WHERE id = ?";
+        String booking = "SELECT * FROM booking WHERE id = ? AND paymentDate IS null";
         String bookedroom = "SELECT * FROM bookedroom WHERE Booking_id = ?";
         String bookeditem = "SELECT * FROM bookeditem WHERE BookedRoom_id = ?";
         String bookedservice = "SELECT * FROM bookedservice WHERE BookedRoom_id = ?";
@@ -232,6 +232,7 @@ public class BookingDAO extends DAO {
         try {
             PreparedStatement ps = conn.prepareStatement(booking);
             ps.setString(1, "%" + name + "%");
+            System.out.println(ps);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Booking book = new Booking();
